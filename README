@@ -1,0 +1,93 @@
+Selea Tudor Octavian - 322CA - VideosDB - 2021
+
+   Clasele Actor, Movie, Serial, Show, User sunt inspirate din clasele
+din pachetul fileio.
+
+Actor:
+	- functia getRating intoarce media aritmetica
+	  a filmelor si serialelor in care a jucat un actor
+
+Movie:
+	- favouriteAppearancesOfMovie:
+		- intoarce numarul de aparitii al unui film in lista de
+		  filme favorite a userilor
+	
+	- totalNumberOfViews:
+		- intoarce de cate ori a fost vizualizat filmul de catre
+		  toti userii din database
+	
+	- getRating:
+		- intoarce ratingul unui film (ratingul reprezinta media
+		  aritmetica a notelor date de useri)
+
+Serial:
+	- analog cu clasa Movie
+
+User:
+	- giveRating:
+		- userul acorda o nota unui film sau unui sezon dintr-un
+		  serial pe care l-a vazut
+
+Show:
+	- clasa parinte a claselor Actor si Movie
+
+Database:
+	- in constructor incarcam listele de actori, filme, seriale, useri,
+	  comenzi din database cu datele din input (obiectele de tip Input
+	  contin date translatate din obiecte JSON in obiecte de tip
+	  MovieInputData, SerialInputData etc.)
+   
+   Commands:
+	- view:
+		- adauga un video (serial/film) in hashmap-ul de video-uri
+		  vazute de catre userul care a dat comanda (hashmap-ul
+		  retine numarul de vizualizari al unui video de catre
+		  user)
+	- favorite:
+		- adauga un video in lista de video-uri favorite a userului
+	- rating:
+		- adauga o nota pentru un film/sezonul unui serial care a fost
+		  vazut deja de user intr-un hashmap care retine notele date de
+		  user fiecarui video vazut.
+		- serialele sunt trecute in hashmap cu tot cu numarul sezonului
+		  (ex. Lost 1(key), 9(value))
+
+   Query pentru actori:
+	- average:
+		- sorteaza actori dupa media filmelor si serialelor in care a jucat
+	- awards:
+		- sorteaza actorii care au castigat premiile din filtrul actiunii
+	- filter_description:
+		- sorteaza actori dupa keywords-urile care apar in descrierea acestora
+		  (keywords-urile se gasesc in filtrul actiunii)
+
+   Query pentru video-uri:
+	- sortarile pentru filme (queryForMovieByRating, queryForMovieByFavourite,
+	  queryForMovieByLenght si queryForMovieByMostViews) si sortarile pentru
+	  seriale (queryForSerialByRating, queryForSerialByFavourite,
+	  queryForSerialByLenght si queryForSerialByMostViews) sunt analoage
+	- fiecare sortare tine cont de filtrele year si genre (care pot sau nu sa existe)
+	  si de parametrul sort_type (crescator sau descrescator), acesta influentand atat
+	  ordinea alfabetica, cat si criteriul primar de sortare
+
+   Query pentru useri:
+	 - sorteaza userii in functie de numarul de note acordate filmelor
+
+   Recomandarile:
+	- popularRecommendation:
+		- am adaugat toate genurile de filme / seriale intr-un hashtable,
+		- am actualizat valorile genurilor cu numarul total de vizualizari pe
+		  care il au filmele care apartin acestor genuri
+
+	- favoriteRecommendation:
+		- am creat 2 hashmap-uri pentru filme si seriale, am actualizat valorile
+		  din hashmap cu numarul de aparitii ale filmelor si serialelor in
+		  listele de video-uri favorite ale userilor
+		- am unit hashmap-urile intr-un hashmap mai mare, pe care l-am sortat
+	   	  in functie de valorile cheilor si am transpus cheile intr-o lista, in
+		  ordinea din hashmap-ul mare (cheile sunt sortate descrescator, in functie
+		  de valoarea acestora)
+		- am facut acest lucru pentru a respecta ordinea filmelor si serialelor din
+		  baza de date
+	- executeActions:
+		- executa actiunile date ca input
